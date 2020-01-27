@@ -74,10 +74,9 @@ class TitleSlugModel(TitleModel):
                 with transaction.atomic():
                     super(TitleSlugModel, self).save(*args, **kwargs)
                     break
-            except IntegrityError, e:
+            except IntegrityError as e:
                 if tries == 0:
                     raise
-
                 tries = tries - 1
                 self.slug = self.increment_slug(self.generate_slug())
 
